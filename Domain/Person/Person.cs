@@ -8,9 +8,6 @@ using ErrorOr;
 
 namespace Domain.Person;
 
-
-// TODO: Провалидировать все поля
-
 /// <summary>
 /// Основная сущность персоны
 /// </summary>
@@ -23,16 +20,62 @@ public class Person : BaseEntity
         Gender = gender;
         PhoneNumber = phoneNumber;
         Telegram = telegram;
-        // TODO: * FluentValidation
     }
 
-    public static ErrorOr<Person> Create(string firstName, string lastName, string middleName, DateTime birthDay, Gender gender, string phoneNumber, string telegram)
+    /// <summary>
+    /// Статический метод для создания модели без валидации
+    /// </summary>
+    /// <param name="firstName"></param>
+    /// <param name="lastName"></param>
+    /// <param name="middleName"></param>
+    /// <param name="birthDay"></param>
+    /// <param name="gender"></param>
+    /// <param name="phoneNumber"></param>
+    /// <param name="telegram"></param>
+    /// <returns></returns>
+    public static Person Create(string firstName, string lastName, string middleName, DateTime birthDay, Gender gender, string phoneNumber, string telegram)
     {
-        return new Person(new FullName(firstName, lastName, middleName),
+        return new Person(FullName.Create(firstName, lastName, middleName),
                             birthDay,
                             gender, 
                             phoneNumber, 
                             telegram);
+    }
+
+    /// <summary>
+    /// Статический метод для создания и валидации модели
+    /// </summary>
+    /// <param name="firstName"></param>
+    /// <param name="lastName"></param>
+    /// <param name="middleName"></param>
+    /// <param name="birthDay"></param>
+    /// <param name="gender"></param>
+    /// <param name="phoneNumber"></param>
+    /// <param name="telegram"></param>
+    /// <returns></returns>
+    public static ErrorOr<Person> CreateAndValidate(string firstName, string lastName, string middleName, DateTime birthDay, Gender gender, string phoneNumber, string telegram)
+    {
+        var fullName = FullName.CreateAndValidate(firstName, lastName, middleName);
+
+        var person = new Person(fullName.Value, birthDay, gender, phoneNumber, telegram);
+
+        var validator = new PersonValidator();
+
+        var validationResult = validator.Validate(person);
+
+        if (!fullName.IsError && validationResult.IsValid)
+        {
+            return person;
+        }
+        
+        var errors = validationResult.Errors
+            .ConvertAll(validationFailure => Error.Validation(
+                validationFailure.PropertyName, 
+                validationFailure.ErrorMessage));
+
+        errors.AddRange(fullName.Errors);
+
+        return errors;
     }
     
     /// <summary>
@@ -64,9 +107,9 @@ public class Person : BaseEntity
     /// Телеграм
     /// </summary>
     public string Telegram { get; private set; }
-    
+
     /// <summary>
     /// Дополнительные поля
     /// </summary>
-    public List<CustomField<string>> CustomFields { get; set; }
+    public List<CustomField<string>> CustomFields { get; set; } = [];
 }
