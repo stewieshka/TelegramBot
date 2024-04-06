@@ -8,6 +8,9 @@ using ErrorOr;
 
 namespace Domain.Person;
 
+
+// TODO: Провалидировать все поля
+
 /// <summary>
 /// Основная сущность персоны
 /// </summary>
@@ -32,19 +35,38 @@ public class Person : BaseEntity
                             telegram);
     }
     
+    /// <summary>
+    /// Полное имя
+    /// </summary>
     public FullName FullName { get; private set; }
-    
-    // не старше 116
+
+    /// <summary>
+    /// День рождения
+    /// </summary>
     public DateTime BirthDay { get; private set; }
 
+    /// <summary>
+    /// Возраст
+    /// </summary>
     public int Age => DateTime.Now.Year - BirthDay.Year;
     
+    /// <summary>
+    /// Пол
+    /// </summary>
     public Gender Gender { get; private set; }
     
-    // +373 77(456789) 12345
+    /// <summary>
+    /// Номер телефона
+    /// </summary>
     public string PhoneNumber { get; private set; }
     
-    // есть собачка, ник не больше 20 символов
+    /// <summary>
+    /// Телеграм
+    /// </summary>
     public string Telegram { get; private set; }
     
+    /// <summary>
+    /// Дополнительные поля
+    /// </summary>
+    public List<CustomField<string>> CustomFields { get; set; }
 }

@@ -21,7 +21,7 @@ public class CreatePersonCommandValidator : AbstractValidator<CreatePersonComman
             .Must(BeAValidMiddleName).WithMessage("Invalid middle name");
 
         RuleFor(x => x.BirthDay)
-            .Must(BeYoungerThan116).WithMessage("You cannot be over 116 years old");
+            .Must(BeYoungerThan116).WithMessage("You cannot be over 150 years old");
 
         RuleFor(x => x.PhoneNumber)
             .Must(BeAValidPhoneNumber).WithMessage("Invalid phone number");
@@ -44,7 +44,7 @@ public class CreatePersonCommandValidator : AbstractValidator<CreatePersonComman
 
     private bool BeYoungerThan116(DateTime birthDay)
     {
-        return DateTime.Now.Year - birthDay.Year <= 116;
+        return DateTime.Now.Year - birthDay.Year <= 150 && birthDay > DateTime.Now;
     }
 
     private bool BeAValidPhoneNumber(string phoneNumber)
