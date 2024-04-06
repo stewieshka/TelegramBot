@@ -1,25 +1,12 @@
 using System.Text.RegularExpressions;
 using FluentValidation;
 
-namespace Application.Persons.Commands.CreatePerson;
+namespace Domain.Person;
 
-public class CreatePersonCommandValidator : AbstractValidator<CreatePersonCommand>
+public class PersonValidator : AbstractValidator<Person>
 {
-    public CreatePersonCommandValidator()
+    public PersonValidator()
     {
-        RuleFor(x => x.FirstName)
-            .NotEmpty()
-            .MaximumLength(20)
-            .Must(BeAName).WithMessage("First name must consist of letters only");
-
-        RuleFor(x => x.LastName)
-            .NotEmpty()
-            .MaximumLength(20)
-            .Must(BeAName).WithMessage("Last name must consist of letters only");
-
-        RuleFor(x => x.MiddleName)
-            .Must(BeAValidMiddleName).WithMessage("Invalid middle name");
-
         RuleFor(x => x.BirthDay)
             .Must(BeYoungerThan116).WithMessage("You cannot be over 150 years old");
 
