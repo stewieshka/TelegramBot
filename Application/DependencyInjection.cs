@@ -1,5 +1,6 @@
 using System.Reflection;
 using Application.Common.Behaviors;
+using Application.Mapping;
 using Application.Persons.Commands.CreatePerson;
 using Domain.Person;
 using ErrorOr;
@@ -20,6 +21,8 @@ public static class DependencyInjection
             typeof(ValidationBehavior<,>));
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+        services.AddScoped<PersonMapper>();
         
         return services;
     }
