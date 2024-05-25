@@ -8,12 +8,12 @@ public abstract class BaseEntity
     /// <summary>
     /// Уникальный идентификатор сущности
     /// </summary>
-    protected Guid Id { get; set; }
+    public Guid Id { get; set; }
     
     /// <summary>
     /// Дата создания сущности
     /// </summary>
-    protected DateTime CreatedDate { get; set; }
+    public DateTime CreationDate { get; set; }
 
     /// <summary>
     /// Метод для сравнения сущностей по Id

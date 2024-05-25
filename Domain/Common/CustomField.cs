@@ -5,9 +5,11 @@ namespace Domain.Common;
 /// </summary>
 public class CustomField<TValue> : BaseEntity
 {
-    public CustomField()
+    public CustomField(string name, TValue value)
     {
         // валидация
+        Name = name;
+        Value = value;
     }
     /// <summary>
     /// Название поля

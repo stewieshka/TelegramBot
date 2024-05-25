@@ -13,6 +13,12 @@ namespace Domain.Person;
 /// </summary>
 public class Person : BaseEntity
 {
+    // Для EF
+    public Person()
+    {
+        
+    }
+    
     private Person(FullName fullName, DateTime birthDay, Gender gender, string phoneNumber, string telegram)
     {
         FullName = fullName;
@@ -33,13 +39,22 @@ public class Person : BaseEntity
     /// <param name="phoneNumber"></param>
     /// <param name="telegram"></param>
     /// <returns></returns>
-    public static Person Create(string firstName, string lastName, string middleName, DateTime birthDay, Gender gender, string phoneNumber, string telegram)
+    public static Person Create(FullName fullName, DateTime birthDay, Gender gender, string phoneNumber, string telegram)
     {
-        return new Person(FullName.Create(firstName, lastName, middleName),
+        return new Person(fullName,
                             birthDay,
                             gender, 
                             phoneNumber, 
                             telegram);
+    }
+    
+    public static Person Create(FullName fullName, DateTime birthDay, string genderString, string phoneNumber, string telegram)
+    {
+        return new Person(fullName,
+            birthDay,
+            Enum.TryParse<Gender>(genderString, out var gender) ? gender : Gender.Undefined, 
+            phoneNumber, 
+            telegram);
     }
 
     /// <summary>

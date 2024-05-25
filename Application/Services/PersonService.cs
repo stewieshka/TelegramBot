@@ -8,8 +8,6 @@ namespace Application.Services;
 
 public class PersonService
 {
-    // TODO: добавить сюда методы, добавить маппинг
-    
     private readonly IPersonRepository _personRepository;
     private readonly PersonMapper _personMapper;
 
