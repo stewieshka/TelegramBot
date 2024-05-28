@@ -31,9 +31,7 @@ public class Person : BaseEntity
     /// <summary>
     /// Статический метод для создания модели без валидации
     /// </summary>
-    /// <param name="firstName"></param>
-    /// <param name="lastName"></param>
-    /// <param name="middleName"></param>
+    /// <param name="fullName"></param>
     /// <param name="birthDay"></param>
     /// <param name="gender"></param>
     /// <param name="phoneNumber"></param>
@@ -92,7 +90,7 @@ public class Person : BaseEntity
 
         return errors;
     }
-    
+
     /// <summary>
     /// Полное имя
     /// </summary>

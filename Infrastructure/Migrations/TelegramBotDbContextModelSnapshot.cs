@@ -29,30 +29,35 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreationDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("creation_date");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("VARCHAR(255)")
+                        .HasColumnName("name");
 
                     b.Property<Guid?>("PersonId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Value")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(255)")
+                        .HasColumnName("value");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("CustomFields");
+                    b.ToTable("custom_fields", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Person.Person", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<DateTime>("BirthDay")
                         .HasColumnType("timestamp with time zone")
@@ -78,7 +83,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Persons");
+                    b.ToTable("persons", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Common.CustomField<string>", b =>
@@ -112,7 +117,7 @@ namespace Infrastructure.Migrations
 
                             b1.HasKey("PersonId");
 
-                            b1.ToTable("Persons");
+                            b1.ToTable("persons");
 
                             b1.WithOwner()
                                 .HasForeignKey("PersonId");

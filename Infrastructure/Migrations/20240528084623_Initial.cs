@@ -12,10 +12,10 @@ namespace Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Persons",
+                name: "persons",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
                     first_name = table.Column<string>(type: "VARCHAR(255)", nullable: false),
                     last_name = table.Column<string>(type: "VARCHAR(255)", nullable: false),
                     middle_name = table.Column<string>(type: "VARCHAR(255)", nullable: false),
@@ -27,32 +27,32 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Persons", x => x.Id);
+                    table.PrimaryKey("PK_persons", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomFields",
+                name: "custom_fields",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Value = table.Column<string>(type: "text", nullable: true),
+                    name = table.Column<string>(type: "VARCHAR(255)", nullable: false),
+                    value = table.Column<string>(type: "VARCHAR(255)", nullable: false),
                     PersonId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    creation_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CustomFields", x => x.Id);
+                    table.PrimaryKey("PK_custom_fields", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CustomFields_Persons_PersonId",
+                        name: "FK_custom_fields_persons_PersonId",
                         column: x => x.PersonId,
-                        principalTable: "Persons",
-                        principalColumn: "Id");
+                        principalTable: "persons",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomFields_PersonId",
-                table: "CustomFields",
+                name: "IX_custom_fields_PersonId",
+                table: "custom_fields",
                 column: "PersonId");
         }
 
@@ -60,10 +60,10 @@ namespace Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CustomFields");
+                name: "custom_fields");
 
             migrationBuilder.DropTable(
-                name: "Persons");
+                name: "persons");
         }
     }
 }

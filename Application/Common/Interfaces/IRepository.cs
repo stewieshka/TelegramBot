@@ -2,9 +2,11 @@ namespace Application.Common.Interfaces;
 
 public interface IRepository<TEntity>
 {
-    public TEntity? GetById(Guid id);
+    public Task<TEntity?> GetById(Guid id);
 
-    public TEntity Add(TEntity entity);
+    public Task<List<TEntity>> Get(int limit);
+
+    public Task<TEntity> Add(TEntity entity);
 
     public TEntity? Update(TEntity entity);
 

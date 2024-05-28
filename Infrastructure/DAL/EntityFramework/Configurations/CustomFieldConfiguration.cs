@@ -11,6 +11,8 @@ public class CustomFieldConfiguration : IEntityTypeConfiguration<CustomField<str
 {
     public void Configure(EntityTypeBuilder<CustomField<string>> builder)
     {
+        builder.ToTable("custom_fields");
+        
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.CreationDate)

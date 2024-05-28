@@ -11,7 +11,12 @@ public class PersonConfiguration : IEntityTypeConfiguration<Person>
 {
     public void Configure(EntityTypeBuilder<Person> builder)
     {
+        builder.ToTable("persons");
+        
         builder.HasKey(x => x.Id);
+
+        builder.Property(x => x.Id)
+            .HasColumnName("id");
 
         builder.Property(x => x.CreationDate)
             .HasColumnName("creation_date")
