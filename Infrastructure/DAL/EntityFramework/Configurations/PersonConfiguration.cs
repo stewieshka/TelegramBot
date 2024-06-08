@@ -41,6 +41,7 @@ public class PersonConfiguration : IEntityTypeConfiguration<Person>
 
         builder.Property(x => x.BirthDay)
             .HasColumnName("birthday")
+            .HasColumnType("DATE")
             .IsRequired();
 
         builder.Property(x => x.PhoneNumber)

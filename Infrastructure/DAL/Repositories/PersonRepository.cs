@@ -1,5 +1,6 @@
 using Application.Common.Interfaces;
 using Domain.Common;
+using Domain.Common.Errors;
 using Domain.Person;
 using Infrastructure.DAL.EntityFramework;
 using Microsoft.EntityFrameworkCore;
@@ -28,23 +29,23 @@ public class PersonRepository(TelegramBotDbContext context) : IPersonRepository
     {
         var entityEntry = await context.Persons.AddAsync(person);
 
-        await context.SaveChangesAsync();
-
         return entityEntry.Entity;
     }
 
-    public Person? Update(Person entity)
+    public bool Delete(Person person)
     {
-        throw new NotImplementedException();
-    }
+        context.Persons.Remove(person);
 
-    public bool Delete(Guid id)
-    {
-        throw new NotImplementedException();
+        return true;
     }
 
     public List<CustomField<string>> GetCustomFields(Guid id)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await context.SaveChangesAsync();
     }
 }

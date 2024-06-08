@@ -8,7 +8,7 @@ public interface IRepository<TEntity>
 
     public Task<TEntity> Add(TEntity entity);
 
-    public TEntity? Update(TEntity entity);
+    public bool Delete(TEntity entity);
 
-    public bool Delete(Guid id);
+    public Task SaveChangesAsync();
 }

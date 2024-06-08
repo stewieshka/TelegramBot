@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(TelegramBotDbContext))]
-    [Migration("20240528084623_Initial")]
+    [Migration("20240608111129_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -63,7 +63,7 @@ namespace Infrastructure.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("BirthDay")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("DATE")
                         .HasColumnName("birthday");
 
                     b.Property<DateTime>("CreationDate")

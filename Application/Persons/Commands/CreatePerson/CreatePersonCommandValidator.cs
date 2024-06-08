@@ -34,6 +34,11 @@ public class CreatePersonCommandValidator : AbstractValidator<CreatePersonComman
         RuleFor(x => x.Telegram)
             .Matches("^@[a-zA-Z0-9]{3,19}$")
             .WithMessage("Invalid telegram");
+
+        RuleFor(x => x.Gender)
+            .GreaterThanOrEqualTo(0)
+            .LessThanOrEqualTo(2)
+            .WithMessage("Gender code must be 0, 1 or 2");
     }
 
     private bool BeAValidMiddleName(string? middleName)

@@ -60,7 +60,7 @@ namespace Infrastructure.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("BirthDay")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("DATE")
                         .HasColumnName("birthday");
 
                     b.Property<DateTime>("CreationDate")

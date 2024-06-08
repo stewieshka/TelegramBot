@@ -1,9 +1,6 @@
-using System.Text.RegularExpressions;
 using Domain.Common;
-using Domain.Common.Errors;
-using Domain.Entities;
-using Domain.Entities.Primitivies;
 using Domain.Entities.ValueObjects;
+using Domain.Person.Primitivies;
 using ErrorOr;
 
 namespace Domain.Person;
@@ -94,12 +91,12 @@ public class Person : BaseEntity
     /// <summary>
     /// Полное имя
     /// </summary>
-    public FullName FullName { get; private set; }
+    public FullName FullName { get; set; }
 
     /// <summary>
     /// День рождения
     /// </summary>
-    public DateTime BirthDay { get; private set; }
+    public DateTime BirthDay { get; set; }
 
     /// <summary>
     /// Возраст
@@ -109,17 +106,17 @@ public class Person : BaseEntity
     /// <summary>
     /// Пол
     /// </summary>
-    public Gender Gender { get; private set; }
+    public Gender Gender { get; set; }
     
     /// <summary>
     /// Номер телефона
     /// </summary>
-    public string PhoneNumber { get; private set; }
+    public string PhoneNumber { get; set; }
     
     /// <summary>
     /// Телеграм
     /// </summary>
-    public string Telegram { get; private set; }
+    public string Telegram { get; set; }
 
     /// <summary>
     /// Дополнительные поля

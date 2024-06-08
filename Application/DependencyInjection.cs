@@ -1,9 +1,5 @@
 using System.Reflection;
 using Application.Common.Behaviors;
-using Application.Mapping;
-using Application.Persons.Commands.CreatePerson;
-using Domain.Person;
-using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,8 +18,6 @@ public static class DependencyInjection
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-        services.AddScoped<PersonMapper>();
-        
         return services;
     }
 }

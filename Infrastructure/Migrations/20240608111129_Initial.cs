@@ -19,7 +19,7 @@ namespace Infrastructure.Migrations
                     first_name = table.Column<string>(type: "VARCHAR(255)", nullable: false),
                     last_name = table.Column<string>(type: "VARCHAR(255)", nullable: false),
                     middle_name = table.Column<string>(type: "VARCHAR(255)", nullable: false),
-                    birthday = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    birthday = table.Column<DateTime>(type: "DATE", nullable: false),
                     gender = table.Column<int>(type: "integer", nullable: false),
                     phone_number = table.Column<string>(type: "VARCHAR(24)", nullable: false),
                     telegram = table.Column<string>(type: "VARCHAR(255)", nullable: false),

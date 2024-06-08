@@ -31,7 +31,7 @@ public class PersonValidator : AbstractValidator<Person>
 
     private bool BeYoungerThan116(DateTime birthDay)
     {
-        return DateTime.Now.Year - birthDay.Year <= 150 && birthDay > DateTime.Now;
+        return DateTime.Now.Year - birthDay.Year <= 150 && birthDay >= DateTime.Now;
     }
 
     private bool BeAValidPhoneNumber(string phoneNumber)

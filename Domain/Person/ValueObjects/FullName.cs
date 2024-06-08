@@ -46,17 +46,17 @@ public class FullName : BaseValueObject
     /// <summary>
     /// Имя
     /// </summary>
-    public string FirstName { get; private set; }
+    public string FirstName { get; set; }
     
     /// <summary>
     /// Фамилия
     /// </summary>
-    public string LastName { get; private set; }
+    public string LastName { get; set; }
 
     /// <summary>
     /// Второе имя или отчество
     /// </summary>
-    public string MiddleName { get; private set; }
+    public string MiddleName { get; set; }
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

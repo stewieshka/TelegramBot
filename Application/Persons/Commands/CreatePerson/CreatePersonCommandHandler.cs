@@ -2,6 +2,7 @@ using Application.Common.Interfaces;
 using Domain.Common.Errors;
 using Domain.Entities.ValueObjects;
 using Domain.Person;
+using Domain.Person.Primitivies;
 using ErrorOr;
 using MediatR;
 
@@ -13,11 +14,13 @@ public sealed class CreatePersonCommandHandler(IPersonRepository personRepositor
     {
         var person = Person.Create(
             FullName.Create(command.FirstName, command.LastName, command.MiddleName),
-            DateTime.SpecifyKind(command.BirthDay, DateTimeKind.Utc), command.Gender, command.PhoneNumber, command.Telegram);
-        
+            command.BirthDay, (Gender)command.Gender, command.PhoneNumber, command.Telegram);
+
         person.CreationDate = DateTime.UtcNow;
 
         var createdPerson = await personRepository.Add(person);
+
+        await personRepository.SaveChangesAsync();
 
         return createdPerson;
     }
