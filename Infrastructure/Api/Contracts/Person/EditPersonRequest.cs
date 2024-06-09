@@ -1,4 +1,4 @@
-namespace Infrastructure.Api.Contracts;
+namespace Infrastructure.Api.Contracts.Person;
 
 public record EditPersonRequest(
     string? FirstName, string? LastName, string? MiddleName,

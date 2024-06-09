@@ -19,6 +19,7 @@ public class PersonRepository(TelegramBotDbContext context) : IPersonRepository
     public async Task<List<Person>> Get(int limit)
     {
         var persons = await context.Persons
+            .Include(x => x.CustomFields)
             .Take(limit)
             .ToListAsync();
 
@@ -39,9 +40,15 @@ public class PersonRepository(TelegramBotDbContext context) : IPersonRepository
         return true;
     }
 
-    public List<CustomField<string>> GetCustomFields(Guid id)
+    public async Task<List<CustomField<string>>> GetCustomFields(Guid id)
     {
-        throw new NotImplementedException();
+        var customFields = await context.Persons
+            .AsQueryable()
+            .Where(x => x.Id == id)
+            .SelectMany(x => x.CustomFields)
+            .ToListAsync();
+
+        return customFields;
     }
 
     public async Task SaveChangesAsync()

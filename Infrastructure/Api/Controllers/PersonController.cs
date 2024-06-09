@@ -1,9 +1,11 @@
+using Application.Persons.Commands.AddCustomField;
 using Application.Persons.Commands.CreatePerson;
 using Application.Persons.Commands.DeletePerson;
 using Application.Persons.Commands.EditPerson;
 using Application.Persons.Queries.GetPerson;
 using Application.Persons.Queries.GetPersons;
 using Infrastructure.Api.Contracts;
+using Infrastructure.Api.Contracts.Person;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -71,6 +73,18 @@ public class PersonController(ISender sender) : ApiController
 
         return result.Match(
             _ => Ok(result.Value),
+            _ => Problem(result.Errors));
+    }
+
+    [HttpPost("{id:guid}/customFields")]
+    public async Task<IActionResult> AddCustomField(Guid id, [FromBody] AddCustomFieldRequest request)
+    {
+        var command = new AddCustomFieldCommand(id, request.Name, request.Value);
+
+        var result = await sender.Send(command);
+
+        return result.Match(
+            _ => Ok(),
             _ => Problem(result.Errors));
     }
 }
