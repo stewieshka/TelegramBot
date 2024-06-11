@@ -51,6 +51,18 @@ public class PersonRepository(TelegramBotDbContext context) : IPersonRepository
         return customFields;
     }
 
+    public async Task<List<Person>> GetPersonsWhoseBirthday(DateTime date)
+    {
+        var persons = await context.Persons
+            .AsQueryable()
+            .Where(x => x.BirthDay.Year == date.Year)
+            .Where(x => x.BirthDay.Month == date.Month)
+            .Where(x => x.BirthDay.Day == date.Day)
+            .ToListAsync();
+
+        return persons;
+    }
+
     public async Task SaveChangesAsync()
     {
         await context.SaveChangesAsync();

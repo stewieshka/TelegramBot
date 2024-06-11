@@ -2,6 +2,7 @@ using Application;
 using Application.Common.Interfaces;
 using Infrastructure.DAL.EntityFramework;
 using Infrastructure.DAL.Repositories;
+using Infrastructure.Jobs;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,8 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 
     builder.Services.AddApplication();
+
+    builder.Services.AddJobs(builder.Configuration);
 }
 
 var app = builder.Build();
