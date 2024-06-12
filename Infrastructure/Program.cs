@@ -3,6 +3,8 @@ using Application.Common.Interfaces;
 using Infrastructure.DAL.EntityFramework;
 using Infrastructure.DAL.Repositories;
 using Infrastructure.Jobs;
+using Infrastructure.Services;
+using Infrastructure.Settings;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,8 +22,13 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 
     builder.Services.AddApplication();
+    
+    builder.Services.Configure<TelegramSettings>(builder.Configuration.GetSection("TelegramSettings"));
 
     builder.Services.AddJobs(builder.Configuration);
+
+    builder.Services.AddSingleton<NotificationTextService>();
+
 }
 
 var app = builder.Build();
