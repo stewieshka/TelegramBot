@@ -5,5 +5,7 @@ namespace Application.Common.Interfaces;
 
 public interface IPersonRepository : IRepository<Person>
 {
-    public List<CustomField<string>> GetCustomFields(Guid id);
+    public Task<List<CustomField<string>>> GetCustomFields(Guid id);
+
+    public Task<List<Person>> GetPersonsWhoseBirthday(DateTime date);
 }

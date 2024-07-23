@@ -1,4 +1,3 @@
-using Domain.Entities.Primitivies;
 using Domain.Person;
 using MediatR;
 using ErrorOr;
@@ -6,5 +5,5 @@ using ErrorOr;
 namespace Application.Persons.Commands.CreatePerson;
 
 public sealed record CreatePersonCommand(string FirstName, string LastName, 
-    string MiddleName, DateTime BirthDay, Gender Gender, 
+    string? MiddleName, DateTime BirthDay, int Gender, 
     string PhoneNumber, string Telegram) : IRequest<ErrorOr<Person>>;

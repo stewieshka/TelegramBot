@@ -1,4 +1,4 @@
-namespace Domain.Entities.Primitivies;
+namespace Domain.Person.Primitivies;
 
 public enum Gender
 {

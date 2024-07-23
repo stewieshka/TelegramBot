@@ -1,9 +1,6 @@
-using System.Text.RegularExpressions;
 using Domain.Common;
-using Domain.Common.Errors;
-using Domain.Entities;
-using Domain.Entities.Primitivies;
 using Domain.Entities.ValueObjects;
+using Domain.Person.Primitivies;
 using ErrorOr;
 
 namespace Domain.Person;
@@ -13,6 +10,12 @@ namespace Domain.Person;
 /// </summary>
 public class Person : BaseEntity
 {
+    // Для EF
+    public Person()
+    {
+        
+    }
+    
     private Person(FullName fullName, DateTime birthDay, Gender gender, string phoneNumber, string telegram)
     {
         FullName = fullName;
@@ -25,21 +28,28 @@ public class Person : BaseEntity
     /// <summary>
     /// Статический метод для создания модели без валидации
     /// </summary>
-    /// <param name="firstName"></param>
-    /// <param name="lastName"></param>
-    /// <param name="middleName"></param>
+    /// <param name="fullName"></param>
     /// <param name="birthDay"></param>
     /// <param name="gender"></param>
     /// <param name="phoneNumber"></param>
     /// <param name="telegram"></param>
     /// <returns></returns>
-    public static Person Create(string firstName, string lastName, string middleName, DateTime birthDay, Gender gender, string phoneNumber, string telegram)
+    public static Person Create(FullName fullName, DateTime birthDay, Gender gender, string phoneNumber, string telegram)
     {
-        return new Person(FullName.Create(firstName, lastName, middleName),
+        return new Person(fullName,
                             birthDay,
                             gender, 
                             phoneNumber, 
                             telegram);
+    }
+    
+    public static Person Create(FullName fullName, DateTime birthDay, string genderString, string phoneNumber, string telegram)
+    {
+        return new Person(fullName,
+            birthDay,
+            Enum.TryParse<Gender>(genderString, out var gender) ? gender : Gender.Undefined, 
+            phoneNumber, 
+            telegram);
     }
 
     /// <summary>
@@ -77,16 +87,16 @@ public class Person : BaseEntity
 
         return errors;
     }
-    
+
     /// <summary>
     /// Полное имя
     /// </summary>
-    public FullName FullName { get; private set; }
+    public FullName FullName { get; set; }
 
     /// <summary>
     /// День рождения
     /// </summary>
-    public DateTime BirthDay { get; private set; }
+    public DateTime BirthDay { get; set; }
 
     /// <summary>
     /// Возраст
@@ -96,17 +106,17 @@ public class Person : BaseEntity
     /// <summary>
     /// Пол
     /// </summary>
-    public Gender Gender { get; private set; }
+    public Gender Gender { get; set; }
     
     /// <summary>
     /// Номер телефона
     /// </summary>
-    public string PhoneNumber { get; private set; }
+    public string PhoneNumber { get; set; }
     
     /// <summary>
     /// Телеграм
     /// </summary>
-    public string Telegram { get; private set; }
+    public string Telegram { get; set; }
 
     /// <summary>
     /// Дополнительные поля
